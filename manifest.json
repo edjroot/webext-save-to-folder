@@ -1,0 +1,15 @@
+{
+  "version": "0.0.1",
+  "name": "Save image to folder",
+  "description": "",
+  "icons": {},
+  "permissions": ["storage", "downloads", "contextMenus"],
+  "background": {
+    "scripts": ["url.js", "background.js"]
+  },
+  "options_ui": {
+    "page": "options.html",
+    "chrome_style": true
+  },
+  "manifest_version": 2
+}

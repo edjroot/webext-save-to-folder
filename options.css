@@ -1,0 +1,61 @@
+body {
+  padding: 10px;
+  width: 370px;
+}
+
+#folders {
+  overflow: visible !important;
+}
+
+.folder {
+  position: relative;
+}
+
+.folder .save-hint {
+  color: blue;
+  display: none;
+  font-family: 'Arial Black';
+  font-size: 20px;
+  left: -12px;
+  position: absolute;
+  top: 1px;
+}
+
+.folder .alias {
+  width: 70px;
+}
+
+#folders {
+  overflow-y: auto;
+  padding-bottom: 50px;
+}
+
+#bottom {
+  background: white;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  max-height: 50px;
+  padding: 10px;
+  width: 385px;
+}
+
+#message {
+  border-radius: 5px;
+  display: none;
+  /*display: inline-block;*/
+  max-width: 250px;
+  padding: 10px;
+}
+
+#message.error {
+  background: #E77;
+}
+
+#message.success {
+  background: #8E8;
+}
+
+#add {
+  float: right;
+}
