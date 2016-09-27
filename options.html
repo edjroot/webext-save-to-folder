@@ -3,18 +3,35 @@
 
 <head>
     <meta charset='utf-8'>
-    <title>"Save Image to folder" options</title>
+    <title>Options</title>
     <link rel="stylesheet" href="options.css">
 </head>
 
 <body>
-    <h1>Folder list</h1>
-    <p>Beware of adding the same path multiple times as it will only be saved once. Also make sure to type valid paths.</p>
-    <div id="folders"></div>
-
+    <div id="top">
+        <a class="help">Help/about</a>
+        <a href="https://chrome.google.com/webstore/detail/pdlkjdlbjjfmlfhijdbdpkilpdoncgdk/reviews">Feedback</a>
+        <a href="https://github.com/edjroot/chrome-save-to-folder">Contribute</a>
+    </div>
+    
+    <main>
+        <p><strong>TL;DR:</strong> Enter a list of folder paths. All folders must be under your downloads folder (or you can use <a href="https://en.wikipedia.org/wiki/Symbolic_link">symlinks</a>) and all paths must be relative to it (Chrome's fault, not mine!). Give each folder an alias if you wish. Right-click something (media or links) > "Save to folder" > choose one. Profit. Click <a class="help">here</a> if you still need help!</p>
+        <h1>Folder list</h1>
+        <p>Beware of using the same path more than once because only one of the repeated rows will be saved.</p>
+        <div id="folders"></div>
+    </main>
+    
     <div id="bottom">
         <button id="add">New folder</button>
-        <div id="message"></div>
+        
+        <label style="line-height: 1.5;">
+            <input id="show-path" type="checkbox">
+            Show all paths in the context menu (even those that have an alias)
+        </label>
+        
+        <div id="message">
+            <div class="close"></div>
+        </div>
     </div>
 
     <script src="jquery-2.2.4.min.js"></script>

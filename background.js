@@ -1,68 +1,92 @@
-// chrome.storage.sync.clear()
+const contexts = ['image', 'audio', 'video', 'link'];
 
 const createContextMenu = () => {
   const parentId = chrome.contextMenus.create({
-    title: "Save image to folder",
-    contexts: ['image'],
+    title: "Save to folder",
+    contexts,
   });
 
   chrome.contextMenus.create({
-    title: "New folder....",
+    title: "New folder / manage folders....",
     parentId,
     onclick: () => {
       chrome.runtime.openOptionsPage();
     },
-    contexts: ['image'],
+    contexts,
+  });
+
+  chrome.contextMenus.create({
+    type: 'separator',
+    parentId,
+    contexts
   });
 
   chrome.storage.sync.get(null, (synced) => {
     const folders = synced.folders;
 
+    // TODO: Let the user reorder items
+    
     for (let folder in folders) {
       const alias = folders[folder];
       chrome.contextMenus.create({
-        title: alias || folder,
+        // NOTE: I chose this symbol so users can quickly tell URLs from aliases (bad idea?)
+        title: alias ? alias + (synced.showPathInCtx ? ' • ' + folder : '') : '• ' + folder,
         parentId,
         onclick: (info, tab) => {
-          saveImg(info, tab, folder);
+          download(info, tab, folder);
         },
-        contexts: ['image'],
+        contexts,
       });
     }
   });
 };
 
-chrome.runtime.onMessage.addListener(
-  function(request, sender, sendResponse) {
-    if (request.hasOwnProperty('please') && request.please === 'updateContextMenu') {
-      chrome.contextMenus.removeAll(() => {
-        createContextMenu();
-      });
-      return true;
-    }
-  });
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+  if (request.hasOwnProperty('please') && request.please === 'updateContextMenu') {
+    chrome.contextMenus.removeAll(() => {
+      createContextMenu();
+    });
+    return true;
+  }
+});
 
-const saveImg = (info, tab, folder) => {
-  const imgName = url('file', info.srcUrl);
-
+const download = (info, tab, folder) => {
   chrome.downloads.download({
-    url: info.srcUrl,
-    filename: folder + '/' + imgName, // REVIEW
+    url: info.srcUrl || info.linkUrl,  // If media or link, respectively
+    // filename: Determined by onDeterminingFilename
   }, (downloadId) => {
-    if (typeof downloadId === 'undefined') {
-      alert("Sorry, there was an error while trying to download this image! Did you set a valid download path?\n\n" +
+    if (downloadId == null) {
+      alert(
+        "Sorry, an error occurred while trying to download this! Did you set a valid download path?\n\n" +
         "This is the folder you chose (relative to the downloads folder):\n" +
         folder + "\n\n" +
         "And this is Chrome's error message:\n" +
-        chrome.runtime.lastError.message);
+        chrome.runtime.lastError.message
+      );
+    } else {
+      downloadContext = {info, tab, folder, downloadId};
     }
   });
 };
 
+// Let Chrome set the download's filename and then prepend the chosen folder
+let downloadContext = null;  // REVIEW: Turn this into a function or something?
+chrome.downloads.onDeterminingFilename.addListener(function(item, suggest) {
+  if (item.id === downloadContext.downloadId) {
+    const folder = (downloadContext.folder === '/' ? '' : downloadContext.folder);
+    suggest({
+      filename: folder + item.filename
+    });
+    downloadContext = null;
+  }
+});
+
 chrome.storage.sync.get(null, (synced) => {
-  // REVIEW: Simplify this (maybe just ditch 'folders' and sync everything at the top level?)
   if (!synced.hasOwnProperty('folders')) {
-    chrome.storage.sync.set({folders: {}});
+    // Initialize settings
+    chrome.storage.sync.set({
+      folders: {}
+    });
   }
 });
 
