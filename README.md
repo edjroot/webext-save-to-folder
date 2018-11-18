@@ -1,3 +1,7 @@
+**Chrome**: https://chrome.google.com/webstore/detail/save-to-folder-from-conte/pdlkjdlbjjfmlfhijdbdpkilpdoncgdk
+
+**Firefox**: https://addons.mozilla.org/en-US/firefox/addon/save-to-folder/
+
 # Help
 
 This is a very simple extension. First, you set up a list of "favorite" folders, like bookmarks. You can also give them aliases (friendlier names) to make the list more readable. Then, whenever you right-click images, videos, audio or links in any page, that list appears on your context menu under the item "Save to folder". Click one of the folders and the file will be downloaded to it.
