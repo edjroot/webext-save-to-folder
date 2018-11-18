@@ -1,4 +1,5 @@
-const contexts = ['image', 'audio', 'video', 'link'];
+// const contexts = ['image', 'audio', 'video', 'link'];
+const contexts = ["all"]  // REVIEW: Does this always work?
 
 const createContextMenu = () => {
   const parentId = chrome.contextMenus.create({
@@ -21,11 +22,11 @@ const createContextMenu = () => {
     contexts
   });
 
-  chrome.storage.sync.get(null, (synced) => {
+  chrome.storage.sync.get(synced => {
     const folders = synced.folders;
 
-    // TODO: Let the user reorder items
-    
+    // TODO: Manual sorting
+
     for (let folder in folders) {
       const alias = folders[folder];
       chrome.contextMenus.create({
@@ -51,10 +52,18 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 });
 
 const download = (info, tab, folder) => {
-  chrome.downloads.download({
-    url: info.srcUrl || info.linkUrl,  // If media or link, respectively
-    // filename: Determined by onDeterminingFilename
-  }, (downloadId) => {
+  const url = (info.srcUrl || info.linkUrl || info.frameUrl || info.pageUrl)
+  const payload = { url }
+
+  // FIXME: filename should be determined by onDeterminingFilename
+  if (is.firefox) {
+    console.log("Firefox detected. Trying to get filename from URL!")
+    const sp = unescape(url).split('/')
+    const filename = folder + sp[sp.length - 1]
+    Object.assign(payload, { filename })
+  }
+
+  chrome.downloads.download(payload, (downloadId) => {
     if (downloadId == null) {
       alert(
         "Sorry, an error occurred while trying to download this! Did you set a valid download path?\n\n" +
@@ -69,19 +78,25 @@ const download = (info, tab, folder) => {
   });
 };
 
-// Let Chrome set the download's filename and then prepend the chosen folder
-let downloadContext = null;  // REVIEW: Turn this into a function or something?
-chrome.downloads.onDeterminingFilename.addListener(function(item, suggest) {
-  if (item.id === downloadContext.downloadId) {
-    const folder = (downloadContext.folder === '/' ? '' : downloadContext.folder);
-    suggest({
-      filename: folder + item.filename
-    });
-    downloadContext = null;
-  }
-});
+// FIXME: `onDeterminingFilename` is unsupported by Firefox
+if (!is.firefox) {
+  console.log("Some non-Firefox browser detected. Getting filename!")
+  // Let Chrome set the download's filename and then prepend the chosen folder
+  let downloadContext = null;  // REVIEW: Turn this into a function or something?
+  chrome.downloads.onDeterminingFilename.addListener(function(item, suggest) {
+    if (item.id === downloadContext.downloadId) {
+      const folder = (downloadContext.folder === '/' ? '' : downloadContext.folder);
+      suggest({
+        filename: folder + item.filename
+      });
+      downloadContext = null;
+    }
+  });
+} else {
+  console.log("Firefox detected. Skipping \"native\" filename!")
+}
 
-chrome.storage.sync.get(null, (synced) => {
+chrome.storage.sync.get(synced => {
   if (!synced.hasOwnProperty('folders')) {
     // Initialize settings
     chrome.storage.sync.set({
