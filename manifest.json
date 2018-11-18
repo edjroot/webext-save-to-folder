@@ -11,7 +11,7 @@
   "icons": {},
   "permissions": ["storage", "downloads", "contextMenus"],
   "background": {
-    "scripts": ["url.js", "is.js", "background.js"]
+    "scripts": ["is.js", "background.js"]
   },
   "options_ui": {
     "page": "options.html",
