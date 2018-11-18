@@ -1,5 +1,6 @@
-- **Chrome**: https://chrome.google.com/webstore/detail/save-to-folder-from-conte/pdlkjdlbjjfmlfhijdbdpkilpdoncgdk
-- **Firefox**: https://addons.mozilla.org/en-US/firefox/addon/save-to-folder/
+**Chrome**: https://chrome.google.com/webstore/detail/save-to-folder-from-conte/pdlkjdlbjjfmlfhijdbdpkilpdoncgdk
+
+**Firefox**: https://addons.mozilla.org/en-US/firefox/addon/save-to-folder/
 
 # Help
 
