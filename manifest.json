@@ -1,9 +1,8 @@
 {
-  "version": "0.0.3",
+  "version": "0.0.4",
   "applications": {
     "gecko": {
-      "id": "saveto@edj.root",
-      "strict_min_version": "53.0"
+      "id": "{b313b32e-777e-458a-aa00-0f6991e515ec}"
     }
   },
   "name": "Save to folder from context menu",
