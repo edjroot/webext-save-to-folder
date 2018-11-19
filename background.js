@@ -59,7 +59,11 @@ const download = (info, tab, folder) => {
   if (is.firefox) {
     console.log("Firefox detected. Trying to get filename from URL!")
     const sp = unescape(url).split('/')
-    const filename = folder + sp[sp.length - 1]
+    const filename = (folder + sp[sp.length - 1]).
+      replace(/\\/g, '/').
+      split('/').
+      filter(s => s).  // Remove leading, trailing and repeated slashes
+      join('/')
     Object.assign(payload, { filename })
   }
 
