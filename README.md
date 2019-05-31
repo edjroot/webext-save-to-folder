@@ -1,30 +1,36 @@
+# "Save to folder from context menu" WebExtension
+
 **Chrome**: https://chrome.google.com/webstore/detail/save-to-folder-from-conte/pdlkjdlbjjfmlfhijdbdpkilpdoncgdk
 
 **Firefox**: https://addons.mozilla.org/en-US/firefox/addon/save-to-folder/
 
-# Help
+**Github**: https://github.com/edjroot/webext-save-to-folder
 
-This is a very simple extension. First, you set up a list of "favorite" folders, like bookmarks. You can also give them aliases (friendlier names) to make the list more readable. Then, whenever you right-click images, videos, audio or links in any page, that list appears on your context menu under the item "Save to folder". Click one of the folders and the file will be downloaded to it.
+*Please do read this thing before complaining about how stupid this extension is!*
 
-## Setting up folders
-The most important "rule" to know here is this: By default, **Chrome only allows you to download files to your default downloads folder (and its subfolders) and nowhere else.** So, if your default folder is, say, `C:\Users\Example\Downloads\`, you can only download to it or one of its subfolders (e.g. `C:\Users\Example\Downloads\my\specialoads`. If you want to download to somewhere *outside* of it, **there *is* a workaround — just read on.** (Hint: it involves [symlinks](https://en.wikipedia.org/wiki/Symbolic_link).)
+This is a very simple extension:
+1. In the settings page, you can set up a list of folders
+2. While browsing, right-click whatever you want to download. You'll see an item on the context menu with the list of folders you set up previously. Select a folder. The file will be magically downloaded to that folder (duh).
 
-Another thing you need to know is that **all paths must be relative to the downloads folder** in Chrome's settings (usually `C:\Users\Example\Downloads` or something like that). So, instead of entering  `C:\Users\Example\Downloads\my\specialoads`, you must type just `my\specialoads`.
+## Common complaints (and why I'm innocent)
 
-Needless to say, **all paths should be valid** if you actually want to download something to them. Just try not to use special symbols (`?`, `%`, `💩`, etc.) or do anything weird like `my .\ $uper \ weird!\.folder \ \ `. I can help make your paths *look* more correct, but it's impossible to be 100% sure before you actually try to download something because it's up to your operating system to decide what is valid and what isn't. Anyway, it's a good idea to try downloading a test file to each of your folders after you save them.
+### I can't choose any folder I want? Stupid extension!
+Sorry for this, but it's actually not my fault. First of all, **you _can_ download files to any folder you want (skip to the next section to see how)**, so this is, like, only half stupid. The thing is, your browser kinda likes to protect you against evil extensions so it won't let them download files to arbitrary folders on your computer, which means you're officially restricted to your default downloads folder. Extension developers, such as yours truly, can't do anything about that. But - you guessed it - _you have the power_! Just read on. I believe in you!
 
-## Using symlinks
-If you want to download files to somewhere other than your default downloads folder, you can try using [symlinks](https://en.wikipedia.org/wiki/Symbolic_link). Picture them as shortcuts, or "folder portals", that look like actual folders. You just need to point them to the folders you want to use and make sure they (the symlinks) are inside your downloads folder. For example, you could navigate to your downloads folder, (on Windows) open the command prompt (`Shift`+`right click` > "Open command window here") and create a symlink to `E:\xample\mydowns` with the following command:
+### I still see the "save as" dialog! How stupid is that?
+Truly sorry, but, err, it's not my fault. It just means your browser is configured to show this dialog, and extensions can't change that setting. But _you_ can! How awesome is that? So just head to your browser's preferences and disable it.
 
-`mklink /D E:\xample\mydowns mydowns`
+### \[Insert complaint here\]! Stupid stupid!
+I feel like I've apologized too much already, but sure, this may be my fault. But at least [open an issue here](https://github.com/edjroot/webext-save-to-folder/issues) to let me know before rating it with one-star and hurting my feelings :(
 
-(On Linux, the command would be something like `ln -s /e/xample/mydowns mydowns`.)
+## Downloading to any folder
+Your browser doesn't allow extensions to download files to places outside your default downloads folder, but you can you can achieve that by using [symlinks](https://en.wikipedia.org/wiki/Symbolic_link). Picture them as shortcuts, or "folder portals", that look like actual folders. You just need to point them to the folders you want to use and make sure they (the symlinks) are inside your downloads folder.
 
-Then you could add that folder (and any subfolders) to the list by just entering `mydowns`, `mydowns\picz`, `mydowns\my\mp3s`, etc. Cool, huh? Now, since this is not "officially" supported by Chrome, it *might* not work. And, of course, it just *might* set your computer on fire. But that's relatively rare and doesn't happen more than once.
+For example, you could navigate to your downloads folder, (on Windows) open the command prompt (`Shift`+`right click` > "Open command window here") and create a symlink to `E:\xample\mydowns` with the command `mklink /D E:\xample\mydowns mydowns`. On Linux, the command would be something like `ln -s /e/xample/mydowns mydowns`.
 
-# About
-I made this for a friend who had just migrated from Firefox and was looking for an alternative to this much awesomer [Firefox extension](https://addons.mozilla.org/pt-BR/firefox/addon/save-image-in-folder/). Since I had some free time (not really), I did something barebones in a few hours and published it to Chrome Web Store. He seemed satisfied enough, so I didn't touch it for some time, didn't market it or anything. It was a surprise to see that more than 70 people have installed it since then and it's even got a (1 star) review! I released this second version to see if I can make my unasked-for users a little happier, hoping for the next review to grant me at least 2 stars :)
+Then you could add that folder (and any subfolders) to the list by just entering `mydowns`, `mydowns\picz`, `mydowns\my\mp3s`, etc. Cool, huh? Now, since this is not "officially" supported by your browser, it *might* not work. And, of course, it just *might* set your computer on fire. But according to my simulations that should be relatively rare.
 
-In other words, I have no ambitions with this project and may not touch it ever again, unless my urge to procrastinate reappears or if I find out that it has actually set someone's computer on fire. The good news is it's open source, yay, so feel free to send me any feedback and contribute with new features or whatever! I may even come back to this again if you do so :)
+## About
+I made this for a friend and don't use it myself, which means I have no further ambitions with this project and may not touch it ever again, unless my urge to procrastinate reappears or if I find out that it has actually set someone's computer on fire. The good news is it's open source, yay, so feel free to give feedback and contribute with new features or whatever! I may even come back to this again if you do so :)
 
 Enjoy!
