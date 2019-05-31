@@ -1,3 +1,9 @@
+# HEY READ THIS PLS
+
+I'm archiving this repo because **there's a better alternative** available: https://github.com/gyng/save-in/
+
+---
+
 # "Save to folder from context menu" WebExtension
 
 **Chrome**: https://chrome.google.com/webstore/detail/save-to-folder-from-conte/pdlkjdlbjjfmlfhijdbdpkilpdoncgdk
