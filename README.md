@@ -1,6 +1,6 @@
 # HEY READ THIS PLS
 
-I'm archiving this repo because **there's a better alternative** available: https://github.com/gyng/save-in/
+Before you go any further, I'll let you know that **there's a better alternative** available: https://github.com/gyng/save-in/
 
 ---
 
