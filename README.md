@@ -21,7 +21,7 @@
 ## FAQ
 
 ### How do I download to locations outside the default downloads folder?
-You just need set up symlinks (for more info, just head to the settings page after you install the extension).
+You just need to set up symlinks (for more info, just head to the settings page after you install the extension).
 
 ### How do I get rid of the "save as" dialog?
 Just head to your browser's preferences and disable this feature.
