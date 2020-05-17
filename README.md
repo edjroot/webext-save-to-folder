@@ -1,5 +1,7 @@
 # Attention: This extension is not maintained anymore.
 
+(But contributions are still welcome!)
+
 But don't be sad! There's an awesome extension that does the same and much more! Go check it out: https://github.com/gyng/save-in/
 
 Whatever you read below may have out-of-date info since the time I wrote this.
