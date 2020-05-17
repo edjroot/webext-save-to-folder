@@ -1,4 +1,8 @@
-Psst: Before you go any further, I'll let you know that there's a more feature-rich alternative available: https://github.com/gyng/save-in/
+# Attention: This extension is not maintained anymore.
+
+But don't be sad! There's an awesome extension that does the same and much more! Go check it out: https://github.com/gyng/save-in/
+
+Whatever you read below may have out-of-date info since the time I wrote this.
 
 ---
 
